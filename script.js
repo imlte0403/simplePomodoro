@@ -55,6 +55,11 @@ const DOM = {
     saveSettingsBtn: document.getElementById('save-settings-btn'),
     musicToggleBtn: document.getElementById('music-toggle-btn'),
     backgroundMusic: document.getElementById('bg-music'),
+    volumeSlider: document.getElementById('volume-slider'),
+    musicToggleBtn: document.getElementById('music-toggle-btn'), 
+    prevMusicBtn: document.getElementById('prev-music-btn'), 
+    nextMusicBtn: document.getElementById('next-music-btn') 
+
 };
 
 // Timer module
@@ -251,7 +256,34 @@ const MusicModule = (() => {
     return { toggle };
 })();
 
+const musicFiles = [
+    "background1.mp3",
+    "background2.mp3",
+    "background3.mp3"
+];
+let currentMusicIndex = 0;
+
+function playCurrentMusic() {
+    DOM.backgroundMusic.src = musicFiles[currentMusicIndex];
+    DOM.backgroundMusic.load(); 
+    if (State.isMusicPlaying) { 
+        DOM.backgroundMusic.play(); 
+    }
+}
+
+function playNextMusic() {
+    currentMusicIndex = (currentMusicIndex + 1) % musicFiles.length;
+    playCurrentMusic();
+}
+
+function playPrevMusic() {
+    currentMusicIndex = (currentMusicIndex - 1 + musicFiles.length) % musicFiles.length;
+    playCurrentMusic();
+}
+
 // Event listeners
+DOM.prevMusicBtn.addEventListener('click', playPrevMusic);
+DOM.nextMusicBtn.addEventListener('click', playNextMusic);
 DOM.startBtn.addEventListener('click', TimerModule.start);
 DOM.stopBtn.addEventListener('click', TimerModule.stop);
 DOM.resetBtn.addEventListener('click', TimerModule.reset);
@@ -261,8 +293,15 @@ DOM.todoInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') TodoModule.add();
 });
 DOM.saveSettingsBtn.addEventListener('click', SettingsModule.save);
+DOM.musicToggleBtn.addEventListener('click', MusicModule.toggle);
+
+DOM.volumeSlider.addEventListener('input', function() {
+    DOM.backgroundMusic.volume = this.value;
+});
 
 // Initialize
 State.init();
 TimerModule.updateDisplay();
 TimerModule.updateStats();
+DOM.backgroundMusic.volume = DOM.volumeSlider.value;
+playCurrentMusic();

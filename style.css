@@ -15,6 +15,7 @@
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.2);
+    --glow-color: rgba(255, 255, 255, 0.2);
 }
 
 body.light-mode {
@@ -33,6 +34,7 @@ body.light-mode {
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.1);
+    --glow-color: rgba(99, 102, 241, 0.25);
 }
 
 * {
@@ -46,7 +48,6 @@ body {
     background: var(--bg-primary);
     color: var(--text-primary);
     min-height: 100vh;
-    overflow-x: hidden;
     transition: all 0.3s ease;
 }
 
@@ -86,7 +87,6 @@ body {
 .timer-card {
     text-align: center;
     position: relative;
-    overflow: hidden;
 }
 
 .timer-card::before {
@@ -144,12 +144,29 @@ body {
     height: 280px;
     margin: 0 auto;
     position: relative;
+    isolation: isolate;
+}
+
+.progress-circle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+    height: 90%;
+
+    border-radius: 50%;
+    box-shadow: 0 0 20px 5px var(--glow-color);
+    z-index: -1; 
 }
 
 .progress-ring {
     transform: rotate(-90deg);
     width: 100%;
     height: 100%;
+    overflow: visible;
 }
 
 .progress-ring-bg {
@@ -161,10 +178,10 @@ body {
 .progress-ring-fill {
     fill: none;
     stroke: url(#gradient);
-    stroke-width: 8;
+    stroke-width: 10;
     stroke-linecap: round;
     transition: stroke-dashoffset 1s ease;
-    filter: drop-shadow(0 0 8px var(--accent-primary));
+    filter: drop-shadow(0 0 20px var(--glow-color));
 }
 
 .timer-text {
@@ -183,6 +200,14 @@ body {
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.music-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn {

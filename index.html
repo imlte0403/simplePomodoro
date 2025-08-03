@@ -38,7 +38,11 @@
                     <button class="btn primary" id="start-btn">시작</button>
                     <button class="btn" id="stop-btn">일시정지</button>
                     <button class="btn" id="reset-btn">리셋</button>
-                     <button class="btn" id="music-toggle-btn">음악 켜기 🎵</button>
+                </div>
+                <div class="music-controls">
+                    <button class="btn music-nav-btn" id="prev-music-btn">＜</button>
+                    <button class="btn music-toggle-btn" id="music-toggle-btn">음악 켜기/끄기</button>
+                    <button class="btn music-nav-btn" id="next-music-btn">＞</button>
                 </div>
 
                 <div class="session-stats">
@@ -85,6 +89,10 @@
                         <label class="setting-label">긴 휴식 (분)</label>
                         <input type="number" class="setting-input" id="long-break-time" value="15" min="1" max="60">
                     </div>
+                    <div class="setting-group">
+                        <label class="setting-label">배경음악 볼륨</label>
+                        <input type="range" class="setting-input" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+                    </div>
                     <button class="btn primary" id="save-settings-btn">설정 저장</button>
                 </div>
             </div>
@@ -96,7 +104,7 @@
     <script src="script.js" defer></script>
 
     <audio id="bg-music" loop>
-    <source src="Users/taeeunlee/pomodoro/background.mp3" type="audio/mpeg">
+    <source src="background.mp3" type="audio/mpeg">
     
 </audio>
 </body>
