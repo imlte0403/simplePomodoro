@@ -10,6 +10,8 @@ const bgmSound = document.getElementById('bgm-sound');
 const bgmSelect = document.getElementById('bgm-select');
 const themeBtn = document.getElementById('theme-btn');
 
+const bgmSelection = document.querySelector('.bgm-selection');
+
 let timer;
 let isWorkSession = true;
 let workSessionCount = 0;
@@ -61,6 +63,8 @@ function resetTimer() {
     updateTimerDisplay();
     startBtn.classList.remove('active');
     stopBtn.classList.remove('active');
+    bgmBtn.classList.remove('active');
+    themeBtn.classList.remove('active');
 }
 
 function nextSession() {
@@ -80,7 +84,16 @@ function nextSession() {
         }
     }
     updateTimerDisplay();
-    alert(sessionText.textContent + ' 시작!');
+    showNotification(sessionText.textContent + ' 시작!');
+}
+
+function showNotification(message) {
+    const notificationMessage = document.getElementById('notification-message');
+    notificationMessage.textContent = message;
+    notificationMessage.style.opacity = '1';
+    setTimeout(() => {
+        notificationMessage.style.opacity = '0';
+    }, 3000);
 }
 
 function toggleBgm() {
@@ -90,11 +103,16 @@ function toggleBgm() {
         bgmSound.play();
     }
     isBgmPlaying = !isBgmPlaying;
+    bgmBtn.classList.toggle('active');
+    bgmSelection.classList.toggle('hidden');
 }
 
 bgmSelect.addEventListener('change', () => {
+    if (isBgmPlaying) { // Pause if currently playing
+        bgmSound.pause();
+    }
     bgmSound.src = bgmSelect.value;
-    if (isBgmPlaying) {
+    if (isBgmPlaying) { // Play the new source if it was playing before
         bgmSound.play();
     }
 });
@@ -106,6 +124,12 @@ bgmBtn.addEventListener('click', toggleBgm);
 
 themeBtn.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
+    themeBtn.classList.toggle('active');
+    if (document.body.classList.contains('light-mode')) {
+        themeBtn.textContent = '다크 모드';
+    } else {
+        themeBtn.textContent = '라이트 모드';
+    }
 });
 
 // Todo List
@@ -118,8 +142,18 @@ function addTodo() {
     if (todoText !== '') {
         const li = document.createElement('li');
         
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.addEventListener('change', () => {
+            li.classList.toggle('completed', checkbox.checked);
+        });
+
         const span = document.createElement('span');
         span.textContent = todoText;
+        span.addEventListener('click', () => {
+            checkbox.checked = !checkbox.checked;
+            li.classList.toggle('completed', checkbox.checked);
+        });
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '삭제';
@@ -127,6 +161,7 @@ function addTodo() {
             li.remove();
         });
 
+        li.appendChild(checkbox);
         li.appendChild(span);
         li.appendChild(deleteBtn);
         todoList.appendChild(li);
