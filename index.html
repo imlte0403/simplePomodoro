@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뽀모도로 타이머</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="session-text">작업 시간</div>
+        <div id="timer">25:00</div>
+        <div class="buttons">
+            <button id="start-btn">시작</button>
+            <button id="stop-btn">정지</button>
+            <button id="reset-btn">리셋</button>
+        </div>
+        <div id="session-count">완료한 세션: 0</div>
+        <button id="bgm-btn">배경음악 켜기/끄기</button>
+    </div>
+    <audio id="notification-sound" src="notification.mp3"></audio>
+    <audio id="bgm-sound" src="background.mp3" loop></audio>
+    <script src="script.js"></script>
+</body>
+</html>
