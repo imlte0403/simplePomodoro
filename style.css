@@ -53,6 +53,26 @@ body {
     transition: all 0.3s ease;
 }
 
+.main-title {
+    font-size: 1.5rem; /* 제목 폰트 크기 (조절 가능) */
+    color: var(--text-primary);
+    text-align: center;
+    padding-top: 2rem; /* 위쪽 여백 */
+    padding-bottom: 1rem; /* 아래 앱 내용과의 여백 */
+    
+    /* 픽셀 아트 느낌의 텍스트 그림자 */
+    text-shadow: 4px 4px 0px var(--accent-secondary);
+}
+
+.main-subtitle {
+    font-size: 0.875rem; /* 글자 크기 */
+    font-weight: normal; /* 일반 굵기 */
+    color: var(--text-muted); /* 옅은 회색 */
+    text-align: center;
+    max-width: 600px; /* 텍스트가 너무 길어지지 않도록 최대 너비 설정 */
+    margin: 0 auto 0 auto; /* 가운데 정렬 */
+    line-height: 1.6; /* 줄 간격 */
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -519,3 +539,48 @@ body {
         gap: 1rem;
     }
 }
+
+    footer {
+        width: 100%;
+        padding: 2rem 1rem;
+        
+        /* Flexbox로 자식 요소들을 세로 중앙 정렬 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem; /* 이미지와 텍스트 사이 간격 */
+    }
+
+    .pixel-art-container {
+        max-width: 300px;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .pixel-art-container img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    /* 테두리와 호버 효과를 위한 공통 클래스 */
+    .pixel-border {
+        border: 4px solid var(--text-primary);
+        border-radius: 0;
+        box-shadow: 4px 4px 0px var(--text-primary);
+        transition: all 0.2s ease;
+    }
+
+    .pixel-border:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0px var(--text-primary);
+    }
+
+    /* footer 텍스트 스타일 (하나로 합침) */
+     .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted); /* CSS 변수를 사용하도록 수정 */
+            line-height: 1.5;
+            text-align: center;
+
+        }
