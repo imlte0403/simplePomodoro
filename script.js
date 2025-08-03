@@ -108,5 +108,40 @@ themeBtn.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
 });
 
+// Todo List
+const todoInput = document.getElementById('todo-input');
+const addTodoBtn = document.getElementById('add-todo-btn');
+const todoList = document.getElementById('todo-list');
+
+function addTodo() {
+    const todoText = todoInput.value.trim();
+    if (todoText !== '') {
+        const li = document.createElement('li');
+        
+        const span = document.createElement('span');
+        span.textContent = todoText;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '삭제';
+        deleteBtn.addEventListener('click', () => {
+            li.remove();
+        });
+
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        todoList.appendChild(li);
+        todoInput.value = '';
+        todoInput.focus();
+    }
+}
+
+addTodoBtn.addEventListener('click', addTodo);
+
+todoInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        addTodo();
+    }
+});
+
 updateTimerDisplay();
 updateSessionCountDisplay();

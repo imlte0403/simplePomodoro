@@ -15,13 +15,76 @@ body.light-mode {
     color: #000;
 }
 
+.main-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
 .container {
     text-align: center;
     border: 4px dotted #0f0;
     padding: 40px;
+    border-radius: 15px;
 }
 
-body.light-mode .container {
+.todo-container {
+    border: 4px dotted #0f0;
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+}
+
+.todo-input-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#todo-input {
+    flex-grow: 1;
+    background-color: #000;
+    color: #0f0;
+    border: 2px dotted #0f0;
+    padding: 5px;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+#add-todo-btn {
+    background-color: #000;
+    color: #0f0;
+    border: 2px dotted #0f0;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+#todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#todo-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #0f0;
+}
+
+#todo-list li button {
+    background: none;
+    border: none;
+    color: #f00;
+    cursor: pointer;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+body.light-mode .container,
+body.light-mode .todo-container {
     border-color: #000;
 }
 
