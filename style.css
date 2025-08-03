@@ -405,7 +405,8 @@ body {
     color: var(--text-muted);
 }
 
-.delete-btn {
+/* 수정/삭제 버튼 공통 스타일 */
+.btn-icon {
     background: none;
     border: none;
     color: var(--text-muted);
@@ -413,11 +414,15 @@ body {
     padding: 0.25rem;
     border-radius: 4px;
     transition: all 0.2s ease;
+    font-size: 1rem; /* 아이콘 크기 */
+    line-height: 1;
 }
 
-.delete-btn:hover {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
+.btn-icon.edit-btn {
+    font-weight: bold; 
+    letter-spacing: 0.05em; 
+    position: relative;
+    top: -2px; 
 }
 
 .settings-section {

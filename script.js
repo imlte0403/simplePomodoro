@@ -189,7 +189,8 @@ const TodoModule = (() => {
         li.innerHTML = `
             <div class="todo-checkbox"></div>
             <span class="todo-text">${text}</span>
-            <button class="delete-btn">×</button>
+            <button class="btn-icon edit-btn">...</button>
+            <button class="btn-icon delete-btn">×</button>
         `;
 
         const checkbox = li.querySelector('.todo-checkbox');
@@ -208,6 +209,37 @@ const TodoModule = (() => {
 
         deleteBtn.addEventListener('click', () => {
             li.remove();
+        });
+
+        const editBtn = li.querySelector('.edit-btn');
+            editBtn.addEventListener('click', () => {
+                todoText.contentEditable = true;
+                todoText.focus();
+                todoText.classList.add('editing');
+
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(todoText);
+                selection.removeAllRanges();
+                selection.addRange(range);
+});
+
+
+        // 수정 완료 후 저장하는 함수
+        const saveEdit = () => {
+            todoText.contentEditable = false;
+            todoText.classList.remove('editing');
+        };
+
+        // 다른 곳을 클릭하면(blur) 저장
+        todoText.addEventListener('blur', saveEdit);
+
+        // Enter 키를 누르면 저장하고, 줄바꿈은 방지
+        todoText.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Enter 시 줄바꿈 되는 기본 동작 방지
+                saveEdit();
+            }
         });
 
         DOM.todoList.appendChild(li);
