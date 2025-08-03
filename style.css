@@ -483,10 +483,19 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* 전체적인 글자 크기 및 rem 단위를 살짝 줄입니다. */
+    html {
+        font-size: 14px;
+    }
+
     .container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* 2단에서 1단으로 변경 */
         padding: 1rem;
         gap: 1.5rem;
+    }
+    
+    .glass-card {
+        padding: 1.5rem; /* 카드 내부 여백을 줄입니다. */
     }
 
     .progress-circle {
@@ -496,6 +505,10 @@ body {
 
     .timer-text {
         font-size: 2.5rem;
+    }
+    
+    .btn {
+        padding: 0.875rem 1.25rem; /* 모바일에서 버튼 크기를 살짝 줄입니다. */
     }
 
     .controls {
