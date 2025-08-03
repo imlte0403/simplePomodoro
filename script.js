@@ -7,6 +7,8 @@ const sessionCountDisplay = document.getElementById('session-count');
 const bgmBtn = document.getElementById('bgm-btn');
 const notificationSound = document.getElementById('notification-sound');
 const bgmSound = document.getElementById('bgm-sound');
+const bgmSelect = document.getElementById('bgm-select');
+const themeBtn = document.getElementById('theme-btn');
 
 let timer;
 let isWorkSession = true;
@@ -35,10 +37,14 @@ function startTimer() {
             nextSession();
         }
     }, 1000);
+    startBtn.classList.add('active');
+    stopBtn.classList.remove('active');
 }
 
 function stopTimer() {
     clearInterval(timer);
+    startBtn.classList.remove('active');
+    stopBtn.classList.add('active');
 }
 
 function resetTimer() {
@@ -53,6 +59,8 @@ function resetTimer() {
         }
     }
     updateTimerDisplay();
+    startBtn.classList.remove('active');
+    stopBtn.classList.remove('active');
 }
 
 function nextSession() {
@@ -84,10 +92,21 @@ function toggleBgm() {
     isBgmPlaying = !isBgmPlaying;
 }
 
+bgmSelect.addEventListener('change', () => {
+    bgmSound.src = bgmSelect.value;
+    if (isBgmPlaying) {
+        bgmSound.play();
+    }
+});
+
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
 bgmBtn.addEventListener('click', toggleBgm);
+
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+});
 
 updateTimerDisplay();
 updateSessionCountDisplay();

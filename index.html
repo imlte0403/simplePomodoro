@@ -20,6 +20,14 @@
         </div>
         <div id="session-count">완료한 세션: 0</div>
         <button id="bgm-btn">배경음악 켜기/끄기</button>
+        <button id="theme-btn">테마 변경</button>
+        <div class="bgm-selection">
+            <label for="bgm-select">배경음악 선택:</label>
+            <select id="bgm-select">
+                <option value="background.mp3">기본 배경음악</option>
+                <option value="new-music.mp3">새로운 음악</option> <!-- 새로운 음악 파일이 있다면 추가 -->
+            </select>
+        </div>
     </div>
     <audio id="notification-sound" src="notification.mp3"></audio>
     <audio id="bgm-sound" src="background.mp3" loop></audio>
