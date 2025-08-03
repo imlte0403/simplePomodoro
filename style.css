@@ -122,7 +122,9 @@ body {
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 1px solid var(--border-color);
+    border: 4px solid var(--text-primary);
+    box-shadow: 4px 4px 0px var(--text-primary);
+    margin-bottom : 1rem;
 }
 
 .session-dot {
@@ -183,9 +185,10 @@ body {
     fill: none;
     stroke: url(#gradient);
     stroke-width: 10;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 1s ease;
+    stroke-linecap: butt;
+    transition: all 0.2s ease;
     filter: drop-shadow(0 0 20px var(--glow-color));
+    stroke-dasharray: 15 15;
 }
 
 .timer-text {
@@ -369,17 +372,18 @@ body {
     width: 18px;
     height: 18px;
     border: 2px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 0px;
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
 }
 
 .todo-checkbox.checked {
-    background: var(--accent-success);
-    border-color: var(--accent-success);
+    background: var(--text-primary);
+    border-color: var(--text-primary);
 }
 
+/*
 .todo-checkbox.checked::after {
     content: '✓';
     position: absolute;
@@ -389,7 +393,7 @@ body {
     color: white;
     font-size: 0.75rem;
     font-weight: bold;
-}
+} */
 
 .todo-text {
     flex: 1;
