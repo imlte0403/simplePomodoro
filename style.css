@@ -223,7 +223,7 @@ body {
     border-radius: 0px;
     padding: 1rem 1.75rem;
     color: var(--text-primary);
-    font-family: inherit;
+    font-family: 'Galmuri9', sans-serif;
     font-weight: normal; /* 픽셀 폰트는 bold가 어색할 수 있음 */
     cursor: pointer;
     transition: all 0.1s ease;
@@ -327,7 +327,7 @@ body {
     border-radius: 0px;
     padding: 0.875rem 1rem;
     color: var(--text-primary);
-    font-family: inherit;
+    font-family: 'Galmuri9', sans-serif;
     outline: none;
     transition: all 0.2s ease;
 }
@@ -448,7 +448,7 @@ body {
     border-radius: 8px;
     padding: 0.5rem 0.75rem;
     color: var(--text-primary);
-    font-family: inherit;
+    font-family: 'Galmuri9', sans-serif;
     width: 80px;
     text-align: center;
     outline: none;
