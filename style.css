@@ -1,7 +1,50 @@
+/* CSS Custom Properties (Variables) */
+:root {
+    --color-primary-dark: #0f0;
+    --color-secondary-dark: #000;
+    --color-accent-dark: #f00; /* For delete button */
+
+    --color-primary-light: #000;
+    --color-secondary-light: #fff;
+
+    --font-family-main: 'DotGothic16', sans-serif;
+
+    --border-radius-small: 5px;
+    --border-radius-medium: 10px;
+    --border-radius-large: 15px;
+
+    --border-style-dotted-2px: 2px dotted;
+    --border-style-dotted-4px: 4px dotted;
+}
+
+/* Theme-specific variables */
 body {
-    background-color: #000;
-    color: #0f0;
-    font-family: 'DotGothic16', sans-serif;
+    --current-bg-color: var(--color-secondary-dark);
+    --current-text-color: var(--color-primary-dark);
+    --current-border-color: var(--color-primary-dark);
+    --current-accent-color: var(--color-primary-dark);
+    --current-button-bg-color: var(--color-secondary-dark);
+    --current-button-text-color: var(--color-primary-dark);
+    --current-button-hover-bg-color: var(--color-primary-dark);
+    --current-button-hover-text-color: var(--color-secondary-dark);
+}
+
+body.light-mode {
+    --current-bg-color: var(--color-secondary-light);
+    --current-text-color: var(--color-primary-light);
+    --current-border-color: var(--color-primary-light);
+    --current-accent-color: var(--color-primary-light);
+    --current-button-bg-color: var(--color-secondary-light);
+    --current-button-text-color: var(--color-primary-light);
+    --current-button-hover-bg-color: var(--color-primary-light);
+    --current-button-hover-text-color: var(--color-secondary-light);
+}
+
+/* Base Styles */
+body {
+    background-color: var(--current-bg-color);
+    color: var(--current-text-color);
+    font-family: var(--font-family-main);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,11 +53,39 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-body.light-mode {
-    background-color: #fff;
-    color: #000;
+/* Utility Classes (applied directly to elements below) */
+.button-base {
+    padding: 10px 20px;
+    font-family: var(--font-family-main);
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
+.button-base:hover {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
+}
+
+.button-base.active {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
+}
+
+.input-base {
+    padding: 5px;
+    font-family: var(--font-family-main);
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
+}
+
+/* Main Layout */
 .main-wrapper {
     display: flex;
     gap: 20px;
@@ -22,41 +93,67 @@ body.light-mode {
 
 .container {
     text-align: center;
-    border: 4px dotted #0f0;
     padding: 40px;
-    border-radius: 15px;
+    border-radius: var(--border-radius-large);
+    box-sizing: border-box;
+    border: var(--border-style-dotted-4px) var(--current-border-color);
 }
 
 .todo-container {
-    border: 4px dotted #0f0;
     padding: 20px;
     width: 300px;
     display: flex;
     flex-direction: column;
-    border-radius: 15px;
+    border-radius: var(--border-radius-large);
+    box-sizing: border-box;
+    border: var(--border-style-dotted-4px) var(--current-border-color);
 }
 
 .todo-input-container {
     display: flex;
     margin-bottom: 10px;
+    gap: 10px; /* Added gap for spacing */
+    width: 100%; /* Fill parent width */
 }
 
+/* Specific Elements */
 #todo-input {
-    flex-grow: 1;
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
+    flex: 1; /* Take all available space */
+    min-width: 0; /* Allow shrinking */
+    height: 30px;
+    font-size: 18px;
+    /* Applied input-base styles */
     padding: 5px;
-    font-family: 'DotGothic16', sans-serif;
+    font-family: var(--font-family-main);
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
 }
 
 #add-todo-btn {
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 5px 10px;
+    /* Applied button-base styles */
+    padding: 10px 20px;
+    font-family: var(--font-family-main);
+    font-size: 18px;
     cursor: pointer;
-    font-family: 'DotGothic16', sans-serif;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    flex-shrink: 0; /* Prevent button from shrinking */
+    width: 80px; /* Fixed width for the button */
+}
+
+#add-todo-btn:hover {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
+}
+
+#add-todo-btn.active {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
 }
 
 #todo-list {
@@ -72,7 +169,7 @@ body.light-mode {
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
-    border-bottom: 1px solid #0f0;
+    border-bottom: 1px solid var(--current-border-color);
 }
 
 #todo-list li.completed span {
@@ -82,11 +179,7 @@ body.light-mode {
 
 #todo-list li input[type="checkbox"] {
     margin-right: 10px;
-    accent-color: #0f0;
-}
-
-body.light-mode #todo-list li input[type="checkbox"] {
-    accent-color: #000;
+    accent-color: var(--current-accent-color);
 }
 
 #todo-list li span {
@@ -94,173 +187,13 @@ body.light-mode #todo-list li input[type="checkbox"] {
     flex-grow: 1;
 }
 
-    border-radius: 15px;
-}
-
-.todo-input-container {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-#todo-input {
-    flex-grow: 1;
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 5px;
-    font-family: 'DotGothic16', sans-serif;
-    border-radius: 10px;
-}
-
-body.light-mode #todo-input {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
-}
-
-#add-todo-btn {
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-family: 'DotGothic16', sans-serif;
-    border-radius: 10px;
-}
-
-#todo-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    flex-grow: 1;
-    overflow-y: auto;
-}
-
-#todo-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    border-bottom: 1px solid #0f0;
-}
-
 #todo-list li button {
     background: none;
     border: none;
-    color: #f00;
+    color: var(--color-accent-dark); /* Fixed color for delete button */
     cursor: pointer;
-    font-family: 'DotGothic16', sans-serif;
-    border-radius: 10px;
-}
-
-body.light-mode .container,
-body.light-mode .todo-container {
-    border-color: #000;
-}
-
-#session-text {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-#timer {
-    font-size: 120px;
-    margin-bottom: 20px;
-}
-
-.buttons button {
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-family: 'DotGothic16', sans-serif;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-body.light-mode .buttons button {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
-}
-
-.buttons button:hover {
-    background-color: #0f0;
-    color: #000;
-}
-
-body.light-mode .buttons button:hover {
-    background-color: #000;
-    color: #fff;
-}
-
-.buttons button.active {
-    background-color: #0f0;
-    color: #000;
-}
-
-body.light-mode .buttons button.active {
-    background-color: #000;
-    color: #fff;
-}
-
-#bgm-btn, #theme-btn {
-    margin-top: 20px;
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 10px 20px;
-    font-family: 'DotGothic16', sans-serif;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-body.light-mode #bgm-btn, body.light-mode #theme-btn {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
-}
-
-#bgm-btn:hover, #theme-btn:hover {
-    background-color: #0f0;
-    color: #000;
-}
-
-body.light-mode #bgm-btn:hover, body.light-mode #theme-btn:hover {
-    background-color: #000;
-    color: #fff;
-}
-
-.bgm-selection {
-    margin-top: 20px;
-}
-
-.hidden {
-    display: none;
-}
-
-#bgm-select {
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 5px;
-    font-family: 'DotGothic16', sans-serif;
-    font-size: 16px;
-    border-radius: 10px;
-}
-
-body.light-mode #bgm-select {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
-}
-
-body.light-mode .container,
-body.light-mode .todo-container {
-    border-color: #000;
+    font-family: var(--font-family-main);
+    border-radius: var(--border-radius-medium);
 }
 
 .notification-message {
@@ -268,112 +201,114 @@ body.light-mode .todo-container {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #0f0;
-    color: #000;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: var(--border-radius-small);
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     z-index: 1000;
-}
-
-body.light-mode .notification-message {
-    background-color: #000;
-    color: #0f0;
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
 }
 
 #session-text {
     font-size: 24px;
     margin-bottom: 20px;
+    color: var(--current-text-color);
+}
+
+/* Timer Styles (Circular) */
+#timer-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+    transition: stroke-dashoffset 1s linear;
+    opacity: 0.3;
+    stroke: var(--current-border-color);
+}
+
+.progress-ring-progress {
+    transition: stroke-dashoffset 1s linear;
+    stroke-linecap: round;
+    stroke: var(--current-text-color);
 }
 
 #timer {
-    font-size: 120px;
-    margin-bottom: 20px;
+    position: relative;
+    font-size: 60px;
+    z-index: 2;
+    color: var(--current-text-color);
 }
 
+/* Buttons */
 .buttons button {
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 10px 20px;
     margin: 0 10px;
-    font-family: 'DotGothic16', sans-serif;
+    /* Applied button-base styles */
+    padding: 10px 20px;
+    font-family: var(--font-family-main);
     font-size: 18px;
     cursor: pointer;
-}
-
-body.light-mode .buttons button {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .buttons button:hover {
-    background-color: #0f0;
-    color: #000;
-}
-
-body.light-mode .buttons button:hover {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
 }
 
 .buttons button.active {
-    background-color: #0f0;
-    color: #000;
-}
-
-body.light-mode .buttons button.active {
-    background-color: #000;
-    color: #fff;
-}
-
-body.light-mode .buttons button.active {
-    background-color: #000;
-    color: #fff;
-}
-
-#bgm-btn.active, #theme-btn.active {
-    background-color: #0f0;
-    color: #000;
-}
-
-body.light-mode #bgm-btn.active, body.light-mode #theme-btn.active {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
 }
 
 #session-count {
     font-size: 18px;
     margin-top: 20px;
+    color: var(--current-text-color);
 }
 
-#bgm-btn, #theme-btn {
+#bgm-btn,
+#theme-btn {
     margin-top: 20px;
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
+    /* Applied button-base styles */
     padding: 10px 20px;
-    font-family: 'DotGothic16', sans-serif;
+    font-family: var(--font-family-main);
     font-size: 18px;
     cursor: pointer;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-body.light-mode #bgm-btn, body.light-mode #theme-btn {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
+#bgm-btn:hover,
+#theme-btn:hover {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
 }
 
-#bgm-btn:hover, #theme-btn:hover {
-    background-color: #0f0;
-    color: #000;
-}
-
-body.light-mode #bgm-btn:hover, body.light-mode #theme-btn:hover {
-    background-color: #000;
-    color: #fff;
+#bgm-btn.active,
+#theme-btn.active {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
 }
 
 .bgm-selection {
@@ -384,17 +319,72 @@ body.light-mode #bgm-btn:hover, body.light-mode #theme-btn:hover {
     display: none;
 }
 
-#bgm-select {
-    background-color: #000;
-    color: #0f0;
-    border: 2px dotted #0f0;
-    padding: 5px;
-    font-family: 'DotGothic16', sans-serif;
-    font-size: 16px;
+.settings-container {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: var(--border-radius-large);
+    border: var(--border-style-dotted-4px) var(--current-border-color);
 }
 
-body.light-mode #bgm-select {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
+.settings-container h2 {
+    margin-top: 0;
+    color: var(--current-text-color);
+}
+
+.setting-item {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-item label {
+    margin-right: 10px;
+    color: var(--current-text-color);
+}
+
+.settings-container input[type="number"] {
+    padding: 8px; /* Adjusted */
+    border-radius: var(--border-radius-small);
+    width: 90px; /* Adjusted */
+    text-align: center;
+    font-family: var(--font-family-main);
+    font-size: 18px; /* Added font-size */
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
+}
+
+#save-settings-btn {
+    margin-top: 10px;
+    /* Applied button-base styles */
+    padding: 10px 20px;
+    font-family: var(--font-family-main);
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#save-settings-btn:hover {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
+}
+
+#save-settings-btn.active {
+    background-color: var(--current-button-hover-bg-color);
+    color: var(--current-button-hover-text-color);
+}
+
+#bgm-select {
+    padding: 5px;
+    font-family: var(--font-family-main);
+    font-size: 16px;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--current-button-bg-color);
+    color: var(--current-button-text-color);
+    border: var(--border-style-dotted-2px) var(--current-border-color);
 }
