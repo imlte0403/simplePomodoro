@@ -366,6 +366,30 @@ body {
 .todo-input:focus {
     border-color: var(--accent-primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    outline: none;
+}
+
+/* 접근성 개선 */
+.btn:focus,
+.todo-input:focus,
+.setting-input:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* 색상 대비 개선 */
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #000000;
+        --text-secondary: #333333;
+        --border-color: #000000;
+    }
+    
+    body.light-mode {
+        --text-primary: #000000;
+        --text-secondary: #333333;
+        --border-color: #000000;
+    }
 }
 
 .todo-input::placeholder {

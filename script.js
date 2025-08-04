@@ -60,7 +60,6 @@ const DOM = {
     backgroundMusic: document.getElementById('bg-music'), // 배경 음악 오디오 요소
         volumeSlider: document.getElementById('volume-slider'), // 볼륨 조절 슬라이더
     prevMusicBtn: document.getElementById('prev-music-btn'), // 이전 음악 버튼
-    prevMusicBtn: document.getElementById('prev-music-btn'), // 이전 음악 버튼
     nextMusicBtn: document.getElementById('next-music-btn') // 다음 음악 버튼
 };
 
@@ -267,17 +266,78 @@ const TodoModule = (() => {
 
 // 설정 모듈
 const SettingsModule = (() => {
-    // 설정 저장
-    function save() {
-        State.workTime = parseInt(DOM.workTimeInput.value); // 작업 시간 파싱
-        State.shortBreakTime = parseInt(DOM.shortBreakTimeInput.value); // 짧은 휴식 시간 파싱
-        State.longBreakTime = parseInt(DOM.longBreakTimeInput.value); // 긴 휴식 시간 파싱
-
-        TimerModule.reset(); // 타이머 초기화 및 새 설정 적용
-        showNotification('설정이 저장되었습니다!'); // 설정 저장 알림
+    // 설정을 로컬 스토리지에 저장
+    function saveToStorage() {
+        try {
+            const settings = {
+                workTime: State.workTime,
+                shortBreakTime: State.shortBreakTime,
+                longBreakTime: State.longBreakTime,
+                volume: DOM.volumeSlider.value
+            };
+            localStorage.setItem('pomodoroSettings', JSON.stringify(settings));
+        } catch (error) {
+            console.error('설정 저장 실패:', error);
+        }
     }
 
-    return { save };
+    // 로컬 스토리지에서 설정 불러오기
+    function loadFromStorage() {
+        try {
+            const saved = localStorage.getItem('pomodoroSettings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                State.workTime = settings.workTime || CONFIG.DEFAULT_WORK_TIME;
+                State.shortBreakTime = settings.shortBreakTime || CONFIG.DEFAULT_SHORT_BREAK_TIME;
+                State.longBreakTime = settings.longBreakTime || CONFIG.DEFAULT_LONG_BREAK_TIME;
+                
+                // UI 업데이트
+                DOM.workTimeInput.value = State.workTime;
+                DOM.shortBreakTimeInput.value = State.shortBreakTime;
+                DOM.longBreakTimeInput.value = State.longBreakTime;
+                DOM.volumeSlider.value = settings.volume || 0.5;
+                DOM.backgroundMusic.volume = DOM.volumeSlider.value;
+            }
+        } catch (error) {
+            console.error('설정 불러오기 실패:', error);
+        }
+    }
+
+    // 설정 저장
+    function save() {
+        try {
+            const workTime = parseInt(DOM.workTimeInput.value);
+            const shortBreakTime = parseInt(DOM.shortBreakTimeInput.value);
+            const longBreakTime = parseInt(DOM.longBreakTimeInput.value);
+
+            // 유효성 검사
+            if (isNaN(workTime) || workTime < 1 || workTime > 60) {
+                NotificationModule.show('작업 시간은 1-60분 사이여야 합니다.');
+                return;
+            }
+            if (isNaN(shortBreakTime) || shortBreakTime < 1 || shortBreakTime > 30) {
+                NotificationModule.show('짧은 휴식 시간은 1-30분 사이여야 합니다.');
+                return;
+            }
+            if (isNaN(longBreakTime) || longBreakTime < 1 || longBreakTime > 60) {
+                NotificationModule.show('긴 휴식 시간은 1-60분 사이여야 합니다.');
+                return;
+            }
+
+            State.workTime = workTime;
+            State.shortBreakTime = shortBreakTime;
+            State.longBreakTime = longBreakTime;
+
+            saveToStorage(); // 로컬 스토리지에 저장
+            TimerModule.reset(); // 타이머 초기화 및 새 설정 적용
+            NotificationModule.show('설정이 저장되었습니다!'); // 설정 저장 알림
+        } catch (error) {
+            console.error('설정 저장 중 오류:', error);
+            NotificationModule.show('설정 저장 중 오류가 발생했습니다.');
+        }
+    }
+
+    return { save, loadFromStorage };
 })();
 
 // 알림 모듈
@@ -296,13 +356,28 @@ const NotificationModule = (() => {
 const MusicModule = (() => {
     // 음악 재생/일시정지 토글
     function toggle() {
-        State.isMusicPlaying = !State.isMusicPlaying;
-        if (State.isMusicPlaying) {
-            DOM.backgroundMusic.play();
-            DOM.musicToggleBtn.innerHTML = '음악 끄기 🔇';
-        } else {
-            DOM.backgroundMusic.pause();
-            DOM.musicToggleBtn.innerHTML = '음악 켜기 🎵';
+        try {
+            State.isMusicPlaying = !State.isMusicPlaying;
+            if (State.isMusicPlaying) {
+                const playPromise = DOM.backgroundMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            DOM.musicToggleBtn.innerHTML = '음악 끄기 🔇';
+                        })
+                        .catch(error => {
+                            console.error('음악 재생 실패:', error);
+                            State.isMusicPlaying = false;
+                            NotificationModule.show('음악 재생에 실패했습니다.');
+                        });
+                }
+            } else {
+                DOM.backgroundMusic.pause();
+                DOM.musicToggleBtn.innerHTML = '음악 켜기 🎵';
+            }
+        } catch (error) {
+            console.error('음악 토글 중 오류:', error);
+            NotificationModule.show('음악 재생 중 오류가 발생했습니다.');
         }
     }
     return { toggle };
@@ -362,3 +437,4 @@ TimerModule.updateDisplay(); // 타이머 디스플레이 초기 업데이트
 TimerModule.updateStats(); // 통계 디스플레이 초기 업데이트
 DOM.backgroundMusic.volume = DOM.volumeSlider.value; // 초기 볼륨 설정
 playCurrentMusic(); // 초기 음악 재생
+SettingsModule.loadFromStorage(); // 설정 로드
