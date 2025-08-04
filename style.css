@@ -1,7 +1,8 @@
 @import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
 
+/* 전역 스타일 */
 :root {
-    /* Dark theme */
+    /* 다크 모드 */
     --bg-primary: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
     --bg-secondary: rgba(255, 255, 255, 0.05);
     --bg-card: rgba(255, 255, 255, 0.08);
@@ -18,9 +19,11 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.2);
     --glow-color: rgba(255, 255, 255, 0.2);
+    --font-size-todo: 0.9rem;
 }
 
 body.light-mode {
+    /* 라이트 모드 */
     --bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
     --bg-secondary: rgba(0, 0, 0, 0.02);
     --bg-card: rgba(255, 255, 255, 0.8);
@@ -53,6 +56,7 @@ body {
     transition: all 0.3s ease;
 }
 
+/* 메인 제목 및 부제목 */
 .main-title {
     font-size: 1.5rem; /* 제목 폰트 크기 (조절 가능) */
     color: var(--text-primary);
@@ -73,6 +77,8 @@ body {
     margin: 0 auto 0 auto; /* 가운데 정렬 */
     line-height: 1.6; /* 줄 간격 */
 }
+
+/* 레이아웃 */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -96,8 +102,6 @@ body {
     transition: all 0.2s ease;
 
     border-radius: 0; /* 둥근 모서리 제거 */
-    border: 4px solid var(--text-primary); /* 두꺼운 픽셀 테두리 */
-    box-shadow: 4px 4px 0px var(--text-primary); /* 픽셀 그림자 */
     backdrop-filter: none; /* 유리 효과는 픽셀 테마와 어울리지 않으므로 제거 */
 }
 
@@ -106,7 +110,7 @@ body {
     box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-/* Timer Section */
+/* 타이머 섹션 */
 .timer-card {
     text-align: center;
     position: relative;
@@ -137,9 +141,8 @@ body {
     background: var(--bg-glass);
     padding: 0.75rem 1.5rem;
     border-radius: 0px;
-    margin-bottom: 2rem;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: 4px solid var(--text-primary);
@@ -222,6 +225,7 @@ body {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 컨트롤 버튼 */
 .controls {
     display: flex;
     gap: 1rem;
@@ -244,12 +248,12 @@ body {
     padding: 1rem 1.75rem;
     color: var(--text-primary);
     font-family: 'Galmuri9', sans-serif !important;
-    font-weight: normal; /* 픽셀 폰트는 bold가 어색할 수 있음 */
+    font-weight: normal; 
+    font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.1s ease;
     box-shadow: 4px 4px 0px var(--text-primary); /* 픽셀 그림자 효과 */
 }
-
 
 .btn:hover {
     transform: translate(2px, 2px); /* 살짝 이동하는 효과 */
@@ -271,6 +275,7 @@ body {
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
 }
 
+/* 세션 통계 */
 .session-stats {
     display: flex;
     justify-content: center;
@@ -291,14 +296,14 @@ body {
 }
 
 .stat-label {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-top: 0.25rem;
 }
 
-/* Side Panel */
+/* 사이드 패널 */
 .side-panel {
     display: flex;
     flex-direction: column;
@@ -333,6 +338,7 @@ body {
     color: white;
 }
 
+/* 할 일 목록 */
 .todo-input-group {
     display: flex;
     gap: 0.75rem;
@@ -347,7 +353,8 @@ body {
     border-radius: 0px;
     padding: 0.875rem 1rem;
     color: var(--text-primary);
-    font-family: 'Galmuri9', sans-serif !important;
+    font-family: 'Galmuri9', sans-serif;
+    font-size: var(--font-size-todo);
     outline: none;
     transition: all 0.2s ease;
 }
@@ -403,22 +410,11 @@ body {
     border-color: var(--text-primary);
 }
 
-/*
-.todo-checkbox.checked::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: bold;
-} */
-
 .todo-text {
     flex: 1;
     cursor: pointer;
     transition: all 0.2s ease;
+    font-size: var(--font-size-todo);
 }
 
 .todo-text.completed {
@@ -446,6 +442,7 @@ body {
     top: -2px; 
 }
 
+/* 설정 */
 .settings-section {
     display: grid;
     gap: 1rem;
@@ -480,6 +477,7 @@ body {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
+/* 알림 */
 .notification {
     position: fixed;
     top: 2rem;
@@ -501,7 +499,7 @@ body {
     opacity: 1;
 }
 
-/* Responsive */
+/* 반응형 디자인 */
 @media (max-width: 768px) {
     /* 전체적인 글자 크기 및 rem 단위를 살짝 줄입니다. */
     html {
@@ -540,47 +538,47 @@ body {
     }
 }
 
-    footer {
-        width: 100%;
-        padding: 2rem 1rem;
-        
-        /* Flexbox로 자식 요소들을 세로 중앙 정렬 */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem; /* 이미지와 텍스트 사이 간격 */
-    }
+/* 푸터 */
+footer {
+    width: 100%;
+    padding: 2rem 1rem;
+    
+    /* Flexbox로 자식 요소들을 세로 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* 이미지와 텍스트 사이 간격 */
+}
 
-    .pixel-art-container {
-        max-width: 300px;
-        width: 100%;
-        padding: 1rem;
-    }
+.pixel-art-container {
+    max-width: 300px;
+    width: 100%;
+    padding: 1rem;
+}
 
-    .pixel-art-container img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
+.pixel-art-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 
-    /* 테두리와 호버 효과를 위한 공통 클래스 */
-    .pixel-border {
-        border: 4px solid var(--text-primary);
-        border-radius: 0;
-        box-shadow: 4px 4px 0px var(--text-primary);
-        transition: all 0.2s ease;
-    }
+/* 테두리와 호버 효과를 위한 공통 클래스 */
+.pixel-border {
+    border: 4px solid var(--text-primary);
+    border-radius: 0;
+    box-shadow: 4px 4px 0px var(--text-primary);
+    transition: all 0.2s ease;
+}
 
-    .pixel-border:hover {
-        transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0px var(--text-primary);
-    }
+.pixel-border:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--text-primary);
+}
 
-    /* footer 텍스트 스타일 (하나로 합침) */
-     .footer-text {
-            font-size: 0.8rem;
-            color: var(--text-muted); /* CSS 변수를 사용하도록 수정 */
-            line-height: 1.5;
-            text-align: center;
-
-        }
+/* footer 텍스트 스타일 (하나로 합침) */
+.footer-text {
+    font-size: 0.8rem;
+    color: var(--text-muted); /* CSS 변수를 사용하도록 수정 */
+    line-height: 1.5;
+    text-align: center;
+}
